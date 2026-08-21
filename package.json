@@ -51,11 +51,21 @@
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "test": "npm run compile && node out/runAllTests.js"
+    "test": "npm run compile && node out/runAllTests.js",
+    "package": "npm run compile && npx --yes @vscode/vsce package --no-dependencies"
   },
   "devDependencies": {
     "@types/node": "^20.11.0",
     "@types/vscode": "^1.85.0",
     "typescript": "^5.3.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/daniel-juvito/gon-vscode.git"
+  },
+  "homepage": "https://github.com/daniel-juvito/gon-vscode",
+  "bugs": {
+    "url": "https://github.com/daniel-juvito/gon-vscode/issues"
+  },
+  "license": "MIT"
 }

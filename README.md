@@ -22,12 +22,34 @@ Out of scope: on-type checking, formatter (`gon fmt`), full LSP (`gonls`).
 - [Gon](https://github.com/daniel-juvito/gon) CLI with `gon check --json` (Diagnostic Protocol v1)
 - Configure `gon.path` if `gon` is not on `PATH`
 
+## Launch (F5)
+
+1. Open this repo in VS Code / Cursor.
+2. `npm install`
+3. Press **F5** (configuration: **Run Extension**).
+4. Extension Development Host opens with `fixtures/` as the workspace.
+5. Open `fixtures/bad.gon`, save → expect GN001 in Problems.
+6. Fix the nil assignment (or open `fixtures/ok.gon`), save → diagnostics clear for that URI.
+
+Configure `gon.path` if the `gon` binary is not on `PATH` (absolute path works).
+
+## Packaging
+
+```bash
+npm run package   # produces gon-0.1.0.vsix
+```
+
+Install on a clean VS Code:
+
+```bash
+code --install-extension gon-0.1.0.vsix
+```
+
 ## Development
 
 ```bash
 npm install
 npm run compile
-# range unit tests (no VS Code host):
 npm test   # compile + range + strict protocol unit tests
 ```
 
@@ -47,3 +69,18 @@ Press F5 in VS Code to launch the Extension Development Host.
 ## Protocol
 
 See [diagnostic-protocol-v1.md](https://github.com/daniel-juvito/gon/blob/main/docs/diagnostic-protocol-v1.md).
+
+## Phase 1 RC acceptance
+
+| # | Check |
+|---|--------|
+| 1 | F5 opens Extension Development Host |
+| 2 | `.gon` detected as language **Gon** |
+| 3 | Save produces diagnostic(s) from `gon check --json` |
+| 4 | Fix + save clears diagnostic for that URI |
+| 5 | `gon.path` absolute path works |
+| 6 | `gon.path` = `"gon"` works via PATH |
+| 7 | `npm test` GREEN |
+| 8 | `.vsix` installs on clean VS Code; vertical slice still works |
+
+Compiler, Diagnostic Protocol, checker, and formatter are **out of scope** for this RC.
