@@ -1,2 +1,2 @@
-// Compile-time companion: after `tsc`, run `node out/runRangeTests.js`
-require("./range.test");
+// Deprecated entry alias — use runAllTests / npm test.
+require("./runAllTests");
