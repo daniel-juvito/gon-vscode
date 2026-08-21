@@ -1,0 +1,15 @@
+.vscode/**
+.vscode-test/**
+src/**
+fixtures/**
+node_modules/**
+.gitignore
+tsconfig.json
+**/*.ts
+**/*.map
+out/**/*.test.js
+out/runAllTests.js
+out/runRangeTests.js
+out/range.test.js
+out/protocol.test.js
+**/*.vsix
