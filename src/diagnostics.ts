@@ -8,6 +8,7 @@
  * Exit 0/1 → parse + render
  * Exit 2/3 → tooling failure (ignore stdout content)
  * Stale generation → discard
+ * Exit 2/3 tooling failure → preserve previous diagnostics for that URI
  *
  * No semantic Gon parser in TypeScript. No LSP.
  */
@@ -89,12 +90,12 @@ export class GonDiagnostics implements vscode.Disposable {
     }
     this.processes.delete(key);
 
-    // Exit 2 / 3 → tooling failure; do not depend on stdout.
+    // Exit 2 / 3 → tooling failure. Preserve the most recent diagnostics for
+    // this URI (do not clear the Problems panel) and report failure separately.
     if (exitCode === 2 || exitCode === 3) {
       this.output.appendLine(
-        `[gon] tooling failure for ${filePath} (exit ${exitCode})\n${stderr}`
+        `[gon] tooling failure for ${filePath} (exit ${exitCode}); preserving previous diagnostics\n${stderr}`
       );
-      // Leave previous diagnostics for this URI; do not clear blindly.
       return;
     }
 
@@ -123,6 +124,7 @@ export class GonDiagnostics implements vscode.Disposable {
     doc: vscode.TextDocument,
     items: ProtocolDiagnostic[]
   ): vscode.Diagnostic[] {
+    // items are already strict-validated by parseProtocolJson; no repair here.
     const getLineText = (line: number): string => {
       if (line < 0 || line >= doc.lineCount) {
         return "";
@@ -132,17 +134,8 @@ export class GonDiagnostics implements vscode.Disposable {
 
     const out: vscode.Diagnostic[] = [];
     for (const item of items) {
-      if (!item || typeof item.message !== "string") {
-        continue;
-      }
-      const start = protocolPosToVsCode(
-        item.range?.start ?? { line: 0, column: 0 },
-        getLineText
-      );
-      const end = protocolPosToVsCode(
-        item.range?.end ?? item.range?.start ?? { line: 0, column: 0 },
-        getLineText
-      );
+      const start = protocolPosToVsCode(item.range.start, getLineText);
+      const end = protocolPosToVsCode(item.range.end, getLineText);
 
       const severity =
         item.severity === "warning"
@@ -154,22 +147,18 @@ export class GonDiagnostics implements vscode.Disposable {
         item.message,
         severity
       );
-      diag.source = item.source || "gon-check";
+      diag.source = item.source;
       diag.code = item.code;
 
       if (item.relatedInformation && item.relatedInformation.length > 0) {
         diag.relatedInformation = item.relatedInformation.map((ri) => {
-          const rs = protocolPosToVsCode(
-            ri.location?.range?.start ?? { line: 0, column: 0 },
-            getLineText
-          );
-          const re = protocolPosToVsCode(
-            ri.location?.range?.end ??
-              ri.location?.range?.start ?? { line: 0, column: 0 },
-            getLineText
-          );
+          const rs = protocolPosToVsCode(ri.location.range.start, getLineText);
+          const re = protocolPosToVsCode(ri.location.range.end, getLineText);
+          // Cross-file related: UTF-16 mapping uses this document's line text
+          // only when the related file is the same URI; otherwise columns are
+          // applied as protocol values (best available without reading the other file).
           const relatedUri =
-            ri.location?.file && ri.location.file !== doc.uri.fsPath
+            ri.location.file !== doc.uri.fsPath
               ? vscode.Uri.file(ri.location.file)
               : doc.uri;
           return new vscode.DiagnosticRelatedInformation(

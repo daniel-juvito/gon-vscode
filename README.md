@@ -12,7 +12,7 @@ The Gon compiler remains the source of truth. This extension does **not** implem
 - UTF-8 byte offset → UTF-16 code unit range mapping
 - Generation counter + process kill on re-save; stale results discarded
 - Exit 0/1 → parse envelope (`schemaVersion === 1`) and render
-- Exit 2/3 → tooling failure (stdout ignored)
+- Exit 2/3 → tooling failure (stdout ignored); **preserve** previous diagnostics for that URI and report failure on the Gon output channel
 - `deactivate` / `dispose` kills active children and disposes collection + output channel
 
 Out of scope: on-type checking, formatter (`gon fmt`), full LSP (`gonls`).
@@ -28,10 +28,21 @@ Out of scope: on-type checking, formatter (`gon fmt`), full LSP (`gonls`).
 npm install
 npm run compile
 # range unit tests (no VS Code host):
-node out/runRangeTests.js
+npm test   # compile + range + strict protocol unit tests
 ```
 
 Press F5 in VS Code to launch the Extension Development Host.
+
+## Extension contract (Phase 1)
+
+| Event | Behavior |
+|-------|----------|
+| Save `.gon` file | `generation++`, kill previous `gon check`, spawn `gon check --json` |
+| Stale generation finishes | Result discarded |
+| Exit 0 or 1 | Require `schemaVersion === 1` and full Diagnostic shape; map to Problems |
+| Exit 2 or 3 | **Preserve** most recent diagnostics for that URI; log tooling failure |
+| Malformed protocol JSON | Tooling failure — no diagnostic rendering from that payload |
+| Deactivate / dispose | Kill active children; dispose collection + output channel |
 
 ## Protocol
 
