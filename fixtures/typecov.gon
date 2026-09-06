@@ -1,0 +1,22 @@
+package main
+
+// v1.6 (M1b) — ! on a nilable reference kind means the reference value is
+// non-nil. A bare `var x !S` with no initializer is GN002.
+
+type Handler func()
+
+func main() {
+	var s ![]byte           // GN002 — zero value of ![]byte is nil
+	var m !map[string]int    // GN002
+	_, _ = s, m
+
+	var ok ![]byte = []byte{} // OK — non-nil (empty is fine)
+	_ = ok
+
+	var box any = []byte{}
+	x := box.(![]byte) // GN001 — ! on a type-assertion target
+	_ = x
+
+	var h !Handler // GN002 — named func type, no initializer
+	_ = h
+}

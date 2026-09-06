@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.1.3]
+
+- Verified against **Gon v1.6.0** (Type Coverage — M1b). `!` now has a
+  uniform meaning on every nilable kind (`![]T`, `!map`, `!chan`, `!func`,
+  named types / aliases): the reference value is non-nil. New rejections —
+  bare `var x !S` with no initializer (**GN002**), `!` on a non-nilable type
+  (**GN003**), `x.(!T)` for any target (**GN001**). Diagnostic Protocol v1
+  is unchanged, so all of these render with **no code change** (severity +
+  `code`/`message` pass through).
+- Added `fixtures/typecov.gon` — a Type Coverage case (3×GN002, 1×GN001) for
+  the F5 Extension Development Host. Needs Gon **v1.6.0+**.
+- README: verified-against note bumped to v1.6.0.
+
 ## [0.1.2]
 
 - Verified against **Gon v1.5.1** (Ecosystem Contract Expansion —
