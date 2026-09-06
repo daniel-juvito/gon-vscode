@@ -2,7 +2,7 @@
   "name": "gon",
   "displayName": "Gon",
   "description": "Language support and diagnostics for the Gon nil-safety language. Consumer of Diagnostic Protocol v1 via gon check --json.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "daniel-juvito",
   "engines": {
     "vscode": "^1.85.0"

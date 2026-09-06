@@ -1,0 +1,11 @@
+package main
+
+type R interface{ Read() }
+
+func mk() R { return nil }
+
+func main() {
+	var r R = mk()
+	var x !R = r // GN001 — ordinary interface value cannot satisfy !R (v1.4)
+	_ = x
+}
