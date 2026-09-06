@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.1.2]
+
+- Verified against **Gon v1.5.1** (Ecosystem Contract Expansion —
+  cross-package `.gna` field/interface contracts; new **GW004** warning for
+  a `.gna` naming a missing symbol). Diagnostic Protocol v1 is unchanged, so
+  every v1.5 diagnostic — including GW004 — renders with **no code change**
+  (the extension maps `severity` and passes `code`/`message` through).
+- Added `fixtures/ecosystem/` — a self-contained module (lib + `.gna` +
+  `.gon`) exercising external field contracts (GN002 / GN001 / GW001) for
+  the F5 Extension Development Host. Needs Gon **v1.5.1+** (v1.5.0's
+  post-check Go re-validation cannot resolve a module-local import).
+- README: verified-against note bumped to v1.5.1.
+
 ## [0.1.1]
 
 - Verified against **Gon v1.4.1** (interface `!I` contracts). Diagnostic

@@ -1,0 +1,11 @@
+package main
+
+import "gonfix/store"
+
+func main() {
+	c := store.Conn{}    // GN002 — external ! field DB missing (v1.5, M4a)
+	c.DB = nil            // GN001 — cannot nil an external ! field
+	if c.DB == nil {      // GW001 — c.DB is a non-nil source
+	}
+	_ = c
+}
