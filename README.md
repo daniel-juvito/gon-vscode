@@ -5,9 +5,10 @@ VS Code extension for [Gon](https://github.com/daniel-juvito/gon) — consumer o
 The Gon compiler remains the source of truth. This extension does **not** implement a semantic Gon parser or an LSP server.
 
 Tracks the Gon CLI, not a pinned version: it renders whatever `gon check --json`
-emits under Diagnostic Protocol v1. Verified against **Gon v1.4.1** (interface
-`!I` contracts — new diagnostics, unchanged protocol). Any newer diagnostic
-code appears with no extension change.
+emits under Diagnostic Protocol v1. Verified against **Gon v1.5.1** (Ecosystem
+Contract Expansion — cross-package `.gna` contracts, new `GW004` warning;
+new diagnostics, unchanged protocol). Any newer diagnostic code appears with
+no extension change.
 
 ## Phase 1 scope
 
@@ -36,6 +37,9 @@ Out of scope: on-type checking, formatter (`gon fmt`), full LSP (`gonls`).
 5. Open `fixtures/bad.gon`, save → expect GN001 in Problems.
 6. Fix the nil assignment (or open `fixtures/ok.gon`), save → diagnostics clear for that URI.
 7. Open `fixtures/iface.gon`, save → expect one GN001 (interface `!I` contract, Gon v1.4).
+8. Open `fixtures/ecosystem/ecosystem.gon`, save → expect GN002 + GN001 + GW001
+   (external `.gna` field contracts across the package boundary, Gon v1.5;
+   needs `gon` v1.5.1+).
 
 Configure `gon.path` if the `gon` binary is not on `PATH` (absolute path works).
 
