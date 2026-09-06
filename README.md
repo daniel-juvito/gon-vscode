@@ -46,13 +46,13 @@ Configure `gon.path` if the `gon` binary is not on `PATH` (absolute path works).
 ## Packaging
 
 ```bash
-npm run package   # produces gon-0.1.1.vsix
+npm run package   # produces gon-0.1.2.vsix
 ```
 
 Install on a clean VS Code:
 
 ```bash
-code --install-extension gon-0.1.1.vsix
+code --install-extension gon-0.1.2.vsix
 ```
 
 ## Development
