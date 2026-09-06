@@ -2,7 +2,7 @@
 
 ## [0.1.1]
 
-- Verified against **Gon v1.4.0** (interface `!I` contracts). Diagnostic
+- Verified against **Gon v1.4.1** (interface `!I` contracts). Diagnostic
   Protocol v1 is unchanged, so the new GN001 cases render with no code
   change; the D6a assertion-target message now reads `!I`.
 - Added `fixtures/iface.gon` — an interface-contract case for the F5
