@@ -1,0 +1,18 @@
+package main
+
+// v1.7 (M2b) — element-position ! is a construction-time obligation.
+
+type T struct{}
+
+func mk() *T { return &T{} }
+
+func main() {
+	ok := []!*T{mk()}   // OK
+	_ = ok
+	bad := []!*T{nil}   // GN001 — explicit nil element
+	_ = bad
+	arr := [3]!*T{2: mk()} // GN002 — fixed-array zero-fill
+	_ = arr
+	var c chan !*T // GN003 — ! on a channel element
+	_ = c
+}
