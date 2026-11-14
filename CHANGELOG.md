@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.5]
+
+- Verified against **Gon v1.8.0** (Generic Semantics — M3). Contracts attach
+  to declaration positions and survive instantiation (`Box[T]{}` →
+  **GN002**/**GN001**), `!X` on a type parameter needs a nilable constraint
+  (**GN003**), and `!` in a type argument or constraint is **GN003**.
+  Diagnostic Protocol v1 is unchanged, so these render with **no code
+  change**.
+- Added `fixtures/generics.gon` (1×GN002, 1×GN001, 2×GN003) for the F5
+  Extension Development Host. Needs Gon **v1.8.0+**.
+- README: verified-against note bumped to v1.8.0.
+
 ## [0.1.4]
 
 - Verified against **Gon v1.7.1** (Element-Contract Construction — M2b).

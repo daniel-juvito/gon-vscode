@@ -5,10 +5,10 @@ VS Code extension for [Gon](https://github.com/daniel-juvito/gon) — consumer o
 The Gon compiler remains the source of truth. This extension does **not** implement a semantic Gon parser or an LSP server.
 
 Tracks the Gon CLI, not a pinned version: it renders whatever `gon check --json`
-emits under Diagnostic Protocol v1. Verified against **Gon v1.7.1** (Element-Contract
-Construction — M2b: element `!` in `[]!*T` / `map[K]!*V` / `[N]!*T` is a
-construction-time obligation; GN001 / GN002 / GN003 cases, unchanged
-protocol). Any newer diagnostic code appears with no extension change.
+emits under Diagnostic Protocol v1. Verified against **Gon v1.8.0** (Generic
+Semantics — M3: contracts attach to declaration positions and survive
+instantiation; `!X` needs a nilable constraint; `!` in type arguments is
+GN003; unchanged protocol). Any newer diagnostic code appears with no extension change.
 
 ## Phase 1 scope
 
@@ -45,6 +45,8 @@ Out of scope: on-type checking, formatter (`gon fmt`), full LSP (`gonls`).
    Gon v1.6; needs `gon` v1.6.0+).
 10. Open `fixtures/elementcontracts.gon`, save → expect 1×GN001 + 1×GN002 +
    1×GN003 (Element-Contract Construction; Gon v1.7; needs `gon` v1.7.1+).
+11. Open `fixtures/generics.gon`, save → expect 1×GN002 + 1×GN001 + 2×GN003
+   (Generic Semantics; Gon v1.8; needs `gon` v1.8.0+).
 
 Configure `gon.path` if the `gon` binary is not on `PATH` (absolute path works).
 

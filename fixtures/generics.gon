@@ -1,0 +1,23 @@
+package main
+
+// v1.8 (M3) — contracts attach to declaration positions and survive
+// instantiation; `!X` needs a nilable constraint; no `!` in type arguments.
+
+type T struct{}
+
+type Box[X any] struct {
+	v !*X
+}
+
+type Plain[X any] struct{ v *X }
+
+func Bad[X any](x !X) {} // GN003 — any does not restrict X to a nilable kind
+
+func Ok[P ~*T](p !P) {} // OK — P is a pointer type
+
+func main() {
+	_ = Box[T]{}       // GN002 — field contract survives instantiation
+	_ = Box[T]{v: nil} // GN001
+	var p Plain[!*T]   // GN003 — ! in a type argument
+	_ = p
+}
