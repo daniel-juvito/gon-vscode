@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.6]
+
+- Verified against **Gon v1.9.0** (Generic `.gna` — M5b). `.gna` contracts on
+  generic symbols resolve through explicit and inferred instantiation, and
+  every `!` flag in a `.gna` is validated against the symbol's real signature
+  (an invalid flag is **GN003** and only that flag is dropped). Diagnostic
+  Protocol v1 is unchanged, so these render with **no code change**.
+- Added `fixtures/genericgna/` — a small module (library, `.gna`, and
+  `genericgna.gon`) with 3×GN001, 2×GN002, 1×GN003 and 2×GW001 for the F5
+  Extension Development Host. Needs Gon **v1.9.0+**.
+- README: verified-against note bumped to v1.9.0.
+
 ## [0.1.5]
 
 - Verified against **Gon v1.8.0** (Generic Semantics — M3). Contracts attach

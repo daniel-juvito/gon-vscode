@@ -1,0 +1,28 @@
+package main
+
+import "gonfixgeneric/cache"
+
+func main() {
+	logger := &cache.Logger{}
+	x := 1
+
+	// X2 — explicit instantiation resolves like the inferred form.
+	_ = cache.Must[int](nil) // GN001: nil into a "!*V" parameter
+	inferred := cache.Must(&x)
+	if inferred == nil { // GW001: a "!*V" result is a non-nil source
+	}
+	explicit := cache.Must[int](&x)
+	if explicit == nil { // GW001: same through the explicit instantiation
+	}
+
+	// X3 — "!M" is valid: M ~map[K]V is a nilable type parameter.
+	_ = cache.Keys[map[string]int](nil) // GN001
+
+	// Field contracts survive instantiation.
+	_ = cache.Cache[string, int]{}                          // GN002: Items and Log missing
+	_ = cache.Cache[string, int]{Items: nil, Log: logger}   // GN001: nil Items
+	_ = cache.Cache[string, int]{Items: map[string]int{}, Log: logger} // ok
+
+	// "!string" in the .gna is meaningless: GN003 at the import, flag dropped.
+	_ = cache.Describe("x")
+}

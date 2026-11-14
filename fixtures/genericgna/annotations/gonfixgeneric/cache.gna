@@ -1,0 +1,26 @@
+schema: 1
+package: gonfixgeneric/cache
+description: "Contracts for the generic cache package"
+
+functions:
+  Must:
+    params:
+      - "!*V"
+    results:
+      - "!*V"
+  Keys:
+    params:
+      - "!M"          # M ~map[K]V is restricted to a nilable kind: valid
+    results:
+      - "[]K"
+  Describe:
+    params:
+      - "!string"     # INVALID on purpose: string is not nilable -> GN003, flag dropped
+    results:
+      - "string"
+
+types:
+  Cache:
+    fields:
+      Items: "!map[K]V"
+      Log:   "!*Logger"
