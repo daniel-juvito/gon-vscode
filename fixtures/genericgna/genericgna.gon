@@ -19,8 +19,8 @@ func main() {
 	_ = cache.Keys[map[string]int](nil) // GN001
 
 	// Field contracts survive instantiation.
-	_ = cache.Cache[string, int]{}                          // GN002: Items and Log missing
-	_ = cache.Cache[string, int]{Items: nil, Log: logger}   // GN001: nil Items
+	_ = cache.Cache[string, int]{}                                     // GN002: Items and Log missing
+	_ = cache.Cache[string, int]{Items: nil, Log: logger}              // GN001: nil Items
 	_ = cache.Cache[string, int]{Items: map[string]int{}, Log: logger} // ok
 
 	// "!string" in the .gna is meaningless: GN003 at the import, flag dropped.
