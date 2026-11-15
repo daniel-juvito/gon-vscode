@@ -7,9 +7,9 @@ type T struct{}
 func mk() *T { return &T{} }
 
 func main() {
-	ok := []!*T{mk()}   // OK
+	ok := []!*T{mk()} // OK
 	_ = ok
-	bad := []!*T{nil}   // GN001 — explicit nil element
+	bad := []!*T{nil} // GN001 — explicit nil element
 	_ = bad
 	arr := [3]!*T{2: mk()} // GN002 — fixed-array zero-fill
 	_ = arr

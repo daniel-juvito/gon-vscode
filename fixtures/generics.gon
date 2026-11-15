@@ -18,6 +18,6 @@ func Ok[P ~*T](p !P) {} // OK — P is a pointer type
 func main() {
 	_ = Box[T]{}       // GN002 — field contract survives instantiation
 	_ = Box[T]{v: nil} // GN001
-	var p Plain[!*T]   // GN003 — ! in a type argument
+	var p Plain[!*T]    // GN003 — ! in a type argument
 	_ = p
 }
