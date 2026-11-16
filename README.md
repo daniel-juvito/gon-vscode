@@ -5,10 +5,11 @@ VS Code extension for [Gon](https://github.com/daniel-juvito/gon) — consumer o
 The Gon compiler remains the source of truth. This extension does **not** implement a semantic Gon parser or an LSP server.
 
 Tracks the Gon CLI, not a pinned version: it renders whatever `gon check --json`
-emits under Diagnostic Protocol v1. Verified against **Gon v1.11.0** (Call-site contracts for
-source-declared methods — M7: a `!` on a method's parameter or result is
-enforced at its callers; unchanged protocol). Package mode (v1.10) is a CLI
-feature: the extension keeps calling single-file `gon check --json <file>`. Any newer diagnostic code appears with no extension change.
+emits under Diagnostic Protocol v1. Verified against **Gon v1.12.0** (directory form for `gon transpile` / `gon build`
+— M9; before it, call-site contracts for source-declared methods — M7 —
+enforced a `!` on a method's parameter or result at its callers; unchanged
+protocol). Package mode and the directory forms are CLI features: the extension
+keeps calling single-file `gon check --json <file>`. Any newer diagnostic code appears with no extension change.
 
 ## Phase 1 scope
 
