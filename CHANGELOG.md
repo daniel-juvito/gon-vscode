@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.1.8]
+
+- Verified against **Gon v1.11.0** (Call-site contracts for source-declared
+  methods — M7). A `!` written on a method's parameter or result is now
+  enforced at its callers (**GN001** for `nil`, **GW001** for a comparison with
+  nil of a `!` result), including through an interface. Diagnostic Protocol v1
+  is unchanged, so these render with **no code change**.
+- Added `fixtures/methodcontracts.gon` (2×GN001, 1×GW001) for the F5 Extension
+  Development Host and for CI. Needs Gon **v1.11.0+**.
+- CI pinned to Gon v1.11.0 (`expected-fixtures.txt` gains the new fixture; the
+  other eight fixtures are unchanged under v1.11).
+- README: verified-against note bumped to v1.11.0.
+
 ## [0.1.7]
 
 - Verified against **Gon v1.10.0** (Package-aware checking — M8). Package mode
