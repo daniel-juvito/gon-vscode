@@ -53,6 +53,16 @@ Out of scope: on-type checking, formatter (`gon fmt`), full LSP (`gonls`).
 
 Configure `gon.path` if the `gon` binary is not on `PATH` (absolute path works).
 
+## CI
+
+`.github/workflows/ci.yml` runs the extension's tests (`npm test`) and
+`scripts/check-fixtures.sh`, which runs the extension's own call
+(`gon check --json <file>`) on every fixture with a pinned `gon` version
+(`GON_VERSION` in the workflow) and compares the exit code, the Protocol v1
+envelope and the count of each diagnostic code against
+`expected-fixtures.txt`. When you add or change a fixture, update the F5 steps
+above and its line in `expected-fixtures.txt`.
+
 ## Packaging
 
 ```bash

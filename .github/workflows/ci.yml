@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  # The gon version the fixtures and expected-fixtures.txt are pinned to. Bump
+  # it on purpose, together with the README and expected-fixtures.txt.
+  GON_VERSION: v1.10.0
+
+jobs:
+  extension:
+    name: Extension tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install
+        run: npm install --no-audit --no-fund
+      - name: Compile and test (protocol and range tests)
+        run: npm test
+
+  fixtures:
+    name: Fixtures against gon
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          # gon v1.10.0 requires Go >= 1.27.0.
+          go-version: '1.27.0'
+      - name: Install gon
+        run: |
+          go install "github.com/daniel-juvito/gon/cmd/gon@${GON_VERSION}"
+          echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
+      - name: gon version
+        run: gon version
+      - name: Check the fixtures against expected-fixtures.txt
+        run: scripts/check-fixtures.sh
