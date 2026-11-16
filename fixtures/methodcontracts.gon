@@ -1,0 +1,21 @@
+package main
+
+type Task struct{}
+
+type Queue struct{}
+
+func (q *Queue) Push(t !*Task) {}
+func (q *Queue) Pop() !*Task   { return &Task{} }
+
+type Pusher interface{ Push(t !*Task) }
+
+func run(q *Queue, p Pusher) {
+	q.Push(nil)
+	p.Push(nil)
+
+	t := q.Pop()
+	if t == nil {
+	}
+}
+
+func main() {}
