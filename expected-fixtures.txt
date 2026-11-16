@@ -1,0 +1,16 @@
+# Expected result of the extension's own call, `gon check --json <file>`, per
+# fixture, pinned to the gon version in .github/workflows/ci.yml. Format
+# (fields separated by " | "):
+#
+#   directory | file | exit code | diagnostic codes with counts
+#
+# Counts are of GN001/GN002/GN003/GW001... in the JSON (positions are not
+# compared). Keep README's F5 steps in step with this file.
+fixtures            | ok.gon               | 0 |
+fixtures            | bad.gon              | 1 | GN001=1
+fixtures            | iface.gon            | 1 | GN001=1
+fixtures/ecosystem  | ecosystem.gon        | 1 | GN001=1 GN002=1 GW001=1
+fixtures            | typecov.gon          | 1 | GN001=1 GN002=3
+fixtures            | elementcontracts.gon | 1 | GN001=1 GN002=1 GN003=1
+fixtures            | generics.gon         | 1 | GN001=1 GN002=1 GN003=2
+fixtures/genericgna | genericgna.gon       | 1 | GN001=3 GN002=2 GN003=1 GW001=2

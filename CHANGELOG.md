@@ -1,5 +1,26 @@
 # Changelog
 
+## [0.1.7]
+
+- Verified against **Gon v1.10.0** (Package-aware checking — M8). Package mode
+  (`gon check <dir>` / `./...`) is a CLI feature: the extension still calls
+  single-file `gon check --json <file>`, which behaves as before, so there is
+  **no code change** and no package-mode fixture. Two v1.10 details that touch
+  the extension's single-file call:
+  - A file whose only problem is a Go type error (for example a call to a
+    function declared in a sibling file) now exits **1** with a valid envelope
+    and **empty** `diagnostics` (the type error goes to stderr); it used to
+    exit 0. Exit 1 with an empty array is valid under Protocol v1 §7 as
+    clarified in Gon v1.10, and the extension already treats exit 0 and 1
+    alike, so the Problems panel is unchanged (no diagnostics for that file).
+    The stderr text is not shown anywhere.
+  - Diagnostic Protocol v1 JSON shape is unchanged.
+- **Fixture fix.** `fixtures/ok.gon` had declared a bare `var x !*int`, which
+  Gon has rejected with **GN002** since v1.6 (a `!` variable needs an
+  initializer), so the "clean file" fixture was not clean. It now initializes
+  `x`, and reports no diagnostics (README step 6).
+- README: verified-against note bumped to v1.10.0.
+
 ## [0.1.6]
 
 - Verified against **Gon v1.9.0** (Generic `.gna` — M5b). `.gna` contracts on
