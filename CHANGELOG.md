@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.9]
+
+- Verified against **Gon v1.12.0** (directory form for `gon transpile` and
+  `gon build` — M9). It is a CLI feature: the extension still calls
+  single-file `gon check --json <file>`, which is unchanged, so there is **no
+  code change** and no new fixture. Diagnostic Protocol v1 is unchanged.
+- CI pinned to Gon v1.12.0; the nine fixtures are unchanged under v1.12.
+- README: verified-against note bumped to v1.12.0.
+
 ## [0.1.8]
 
 - Verified against **Gon v1.11.0** (Call-site contracts for source-declared
