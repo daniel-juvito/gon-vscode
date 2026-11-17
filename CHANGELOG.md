@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.1.12]
+
+- Verified against **Gon v1.15.0**. Its changes are in package mode (a
+  directory or `./...` operand): a package that cannot be loaded (no `go`
+  command, an invalid `go.mod`, a `.gon` file excluded by build constraints)
+  is exit 2 instead of 1, and an invalid `package` clause is a parse error
+  with an envelope. The extension runs single-file `gon check --json <file>`,
+  so none of this reaches it; it already treats exit 2 as a tooling failure
+  and keeps the previous diagnostics. **No code change.**
+- The eleven fixtures give the same result under v1.15.0 as under v1.14.0
+  (`scripts/check-fixtures.sh`, identical output); `expected-fixtures.txt` is
+  unchanged.
+- CI pinned to Gon v1.15.0; README: verified-against note bumped to v1.15.0.
+
 ## [0.1.11]
 
 - Verified against **Gon v1.14.0**: an importer sees the `!` contracts written
