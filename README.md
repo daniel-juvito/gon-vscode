@@ -5,12 +5,11 @@ VS Code extension for [Gon](https://github.com/daniel-juvito/gon) — consumer o
 The Gon compiler remains the source of truth. This extension does **not** implement a semantic Gon parser or an LSP server.
 
 Tracks the Gon CLI, not a pinned version: it renders whatever `gon check --json`
-emits under Diagnostic Protocol v1. Verified against **Gon v1.13.0** (the operands of a `return` and function literals
-are now checked; before it, v1.12 added the directory form for `gon transpile` /
-`gon build` — M9; before that, call-site contracts for source-declared methods — M7 —
-enforced a `!` on a method's parameter or result at its callers; unchanged
-protocol). Package mode and the directory forms are CLI features: the extension
-keeps calling single-file `gon check --json <file>`. Any newer diagnostic code appears with no extension change.
+emits under Diagnostic Protocol v1. Verified against **Gon v1.14.0** (an importer sees the `!`
+contracts written in another package's `.gon` sources of the same module, and a
+`.gna` for such a package is ignored with the new warning GW005; unchanged
+protocol). The extension keeps calling single-file `gon check --json <file>`,
+which gets these contracts too. Any newer diagnostic code appears with no extension change.
 
 ## Phase 1 scope
 
@@ -58,6 +57,9 @@ Out of scope: on-type checking, formatter (`gon fmt`), full LSP (`gonls`).
 14. Open `fixtures/returncontracts.gon`, save → expect 2×GN001 + 1×GW001 (a `!`
    contract broken inside a `return` operand; the closure that shadows the outer
    `!` parameter is clean; Gon v1.13; needs `gon` v1.13.0+).
+15. Open `fixtures/sourcecontracts/sourcecontracts.gon`, save → expect 1×GW001 +
+   1×GN001 + 1×GN002 for contracts declared in `fixtures/sourcecontracts/lib/lib.gon`
+   (another package of the same module; Gon v1.14; needs `gon` v1.14.0+).
 
 Configure `gon.path` if the `gon` binary is not on `PATH` (absolute path works).
 

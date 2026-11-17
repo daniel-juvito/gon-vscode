@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.1.11]
+
+- Verified against **Gon v1.14.0**: an importer sees the `!` contracts written
+  in another package's `.gon` sources of the same module (no `.gna` needed), and
+  a `.gna` for such a package is ignored with the new warning **GW005**. The
+  extension's single-file `gon check --json <file>` gets them too, and
+  Diagnostic Protocol v1 is unchanged, so this renders with **no code change**
+  (GW005 is a warning like any other).
+- Added `fixtures/sourcecontracts/` (a module with `lib/lib.gon`, its
+  transpiled `lib/lib.go`, and `sourcecontracts.gon` importing it): 1×GW001 +
+  1×GN001 + 1×GN002 under v1.14, empty under v1.13. Needs Gon **v1.14.0+**.
+- CI pinned to Gon v1.14.0; the other ten fixtures are unchanged under v1.14.
+- README: verified-against note bumped to v1.14.0.
+
 ## [0.1.10]
 
 - Verified against **Gon v1.13.0**: the operands of a `return` are checked like
