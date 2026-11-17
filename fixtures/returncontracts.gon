@@ -1,0 +1,29 @@
+package main
+
+type Task struct{}
+
+type Job struct {
+	Task !*Task
+}
+
+func Run(t !*Task) int { return 0 }
+
+func nilField() Job {
+	return Job{Task: nil}
+}
+
+func nilArgument() int {
+	return Run(nil)
+}
+
+func alwaysFalse(t !*Task) bool {
+	return t == nil
+}
+
+func shadowed(t !*Task) func(*Task) bool {
+	return func(t *Task) bool {
+		return t == nil
+	}
+}
+
+func main() {}

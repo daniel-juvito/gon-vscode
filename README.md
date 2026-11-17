@@ -5,8 +5,9 @@ VS Code extension for [Gon](https://github.com/daniel-juvito/gon) — consumer o
 The Gon compiler remains the source of truth. This extension does **not** implement a semantic Gon parser or an LSP server.
 
 Tracks the Gon CLI, not a pinned version: it renders whatever `gon check --json`
-emits under Diagnostic Protocol v1. Verified against **Gon v1.12.0** (directory form for `gon transpile` / `gon build`
-— M9; before it, call-site contracts for source-declared methods — M7 —
+emits under Diagnostic Protocol v1. Verified against **Gon v1.13.0** (the operands of a `return` and function literals
+are now checked; before it, v1.12 added the directory form for `gon transpile` /
+`gon build` — M9; before that, call-site contracts for source-declared methods — M7 —
 enforced a `!` on a method's parameter or result at its callers; unchanged
 protocol). Package mode and the directory forms are CLI features: the extension
 keeps calling single-file `gon check --json <file>`. Any newer diagnostic code appears with no extension change.
@@ -54,6 +55,9 @@ Out of scope: on-type checking, formatter (`gon fmt`), full LSP (`gonls`).
 13. Open `fixtures/methodcontracts.gon`, save → expect 2×GN001 + 1×GW001
    (a `!` on a method's parameter / result enforced at its callers, direct and
    through an interface; Gon v1.11; needs `gon` v1.11.0+).
+14. Open `fixtures/returncontracts.gon`, save → expect 2×GN001 + 1×GW001 (a `!`
+   contract broken inside a `return` operand; the closure that shadows the outer
+   `!` parameter is clean; Gon v1.13; needs `gon` v1.13.0+).
 
 Configure `gon.path` if the `gon` binary is not on `PATH` (absolute path works).
 
