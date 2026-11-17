@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.1.10]
+
+- Verified against **Gon v1.13.0**: the operands of a `return` are checked like
+  any other expression (**GN001** / **GN002** / **GW001**), and a function
+  literal is checked as a function (its own parameters and result contract; a
+  closure parameter that shadows an outer `!` parameter is no longer a false
+  GW001). Diagnostic Protocol v1 is unchanged, so these render with **no code
+  change**.
+- Added `fixtures/returncontracts.gon` (2×GN001, 1×GW001; clean under v1.12) for
+  the F5 Extension Development Host and for CI. Needs Gon **v1.13.0+**.
+- CI pinned to Gon v1.13.0 (`expected-fixtures.txt` gains the new fixture; the
+  other nine fixtures are unchanged under v1.13, i.e. none of them broke a
+  contract inside a `return` or a closure).
+- README: verified-against note bumped to v1.13.0.
+
 ## [0.1.9]
 
 - Verified against **Gon v1.12.0** (directory form for `gon transpile` and

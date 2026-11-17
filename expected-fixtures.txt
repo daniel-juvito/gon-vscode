@@ -14,4 +14,5 @@ fixtures            | typecov.gon          | 1 | GN001=1 GN002=3
 fixtures            | elementcontracts.gon | 1 | GN001=1 GN002=1 GN003=1
 fixtures            | generics.gon         | 1 | GN001=1 GN002=1 GN003=2
 fixtures            | methodcontracts.gon  | 1 | GN001=2 GW001=1
+fixtures            | returncontracts.gon  | 1 | GN001=2 GW001=1
 fixtures/genericgna | genericgna.gon       | 1 | GN001=3 GN002=2 GN003=1 GW001=2
