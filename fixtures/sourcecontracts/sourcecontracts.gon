@@ -1,0 +1,11 @@
+package main
+
+import "gonfixsrc/lib"
+
+func main() {
+	s := lib.Open()
+	if s == nil {
+	}
+	s.Put(nil)
+	_ = lib.Entry{}
+}
