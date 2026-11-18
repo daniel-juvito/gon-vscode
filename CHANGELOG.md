@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.13]
+
+- Verified against **Gon v1.16.0**. Its changes are in package mode: the go
+  command decides which `.gon` files belong to a package (an excluded `.gon`
+  is not checked), and `./...` stops at nested modules. The extension runs
+  single-file `gon check --json <file>`, which these do not touch. **No code
+  change.**
+- The eleven fixtures give the same result under v1.16.0 as under v1.15.0
+  (`scripts/check-fixtures.sh`, identical output); `expected-fixtures.txt` is
+  unchanged.
+- CI pinned to Gon v1.16.0; README: verified-against note bumped to v1.16.0.
+
 ## [0.1.12]
 
 - Verified against **Gon v1.15.0**. Its changes are in package mode (a
