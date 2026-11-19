@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.1.14]
+
+- Verified against **Gon v1.18.0** (CI pin straight from v1.16.0).
+- **Gon v1.17 changes what the extension sees for one case.** When a `.gon`
+  file's `go.mod` is found but its module cannot be loaded (an invalid
+  `go.mod`, a broken `go.work`, no `go` command, …), `gon check --json <file>`
+  is now exit 2 with no JSON, where Gon v1.16 fell back silently and returned
+  diagnostics (exit 0 or 1). Measured with an invalid `go.mod` and a GN001
+  file: v1.16.0 exit 1 with the GN001; v1.18.0 exit 2, `gon: invalid go.mod:
+  go.mod:1: unknown directive: garbage`. The extension already treats exit 2
+  as a tooling failure: it keeps the file's previous diagnostics and writes
+  the message to the Gon output channel (`src/diagnostics.ts`). **No code
+  change.**
+- Gon v1.18's package-mode change (a multi-file package outside a module) does
+  not reach the single-file check.
+- The eleven fixtures give the same result under v1.18.0 as under v1.16.0
+  (`scripts/check-fixtures.sh`, identical output); `expected-fixtures.txt` is
+  unchanged. `npm test` passes.
+
 ## [0.1.13]
 
 - Verified against **Gon v1.16.0**. Its changes are in package mode: the go
