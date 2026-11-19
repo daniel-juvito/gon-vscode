@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.1.15]
+
+- Verified against **Gon v1.19.0**. Its changes are in package mode only: a
+  `.gon` with a malformed `//go:build` line is a source error of its package
+  (exit 1, the other files still checked; it was exit 2), and a file name the
+  go tool ignores (`_x.gon`) no longer fails its package. The extension runs
+  single-file `gon check --json <file>`, so none of this reaches it. **No code
+  change.**
+- Measured: a single file with a malformed `//go:build` line is exit 0 with an
+  empty envelope under v1.18.0 and under v1.19.0 (Gon's file mode does not
+  report it; a Gon-side matter, not changed here).
+- The eleven fixtures give the same result under v1.19.0 as under v1.16.0
+  (`scripts/check-fixtures.sh`, identical output); `expected-fixtures.txt` is
+  unchanged. `npm test` passes.
+- CI pinned to Gon v1.19.0; README verified-against note bumped.
+
 ## [0.1.14]
 
 - Verified against **Gon v1.18.0** (CI pin straight from v1.16.0).
