@@ -1,5 +1,29 @@
 # Changelog
 
+## [0.1.16]
+
+- Verified against **Gon v1.20.0**. Two exit codes change, and one of them is
+  reached by the single-file `gon check --json <file>` the extension runs: a
+  file with a malformed `//go:build` line is **exit 1** (the envelope is still
+  empty, plus one line on stderr), where it was exit 0 under v1.19.0. The other
+  change, `gon build <dir>` refusing before it transpiles when `go build` has no
+  module for the operand (exit 2, it was exit 1), is not a command the
+  extension runs. **No code change.**
+- Measured with a module and a file whose `//go:build` line has an unclosed
+  parenthesis: v1.19.0 gives exit 0 and `{"schemaVersion":1,"diagnostics":[]}`;
+  v1.20.0 gives exit 1, the same envelope, and `gon: invalid build constraint
+  in a.gon: parsing //go:build line: missing close paren` on stderr. The
+  extension handles exit 0 and 1 the same way (it renders the envelope and does
+  not log stderr), so **the editor shows nothing for such a file, before and
+  after**. Protocol v1 has no Diagnostic for it (no code and no range: go/build
+  gives no position), so showing it would be a Gon decision and a protocol
+  change, not a change here. This supersedes the note of 0.1.15 about exit 0,
+  which stays true for v1.19.0.
+- The eleven fixtures give the same result under v1.20.0 as under v1.19.0
+  (`scripts/check-fixtures.sh`, identical output); `expected-fixtures.txt` is
+  unchanged. `npm test` passes.
+- CI pinned to Gon v1.20.0; README verified-against note bumped.
+
 ## [0.1.15]
 
 - Verified against **Gon v1.19.0**. Its changes are in package mode only: a
