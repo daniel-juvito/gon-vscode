@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.1.18]
+
+- Verified against **Gon v1.22.0**. The protocol is unchanged; v1.22 makes an ordinary
+  value of a pointer, slice, map, channel or function kind that flows into a `!T` slot
+  **GN001, an error** (exit 1), where v1.21 reported it as the warning GW006. The
+  extension renders any code with its severity, so **no code change**: such a diagnostic
+  now appears as an error in the Problems panel instead of a warning.
+- The eleven fixtures give the same exit codes under v1.22.0 as under v1.21.0; only
+  `fixtures/genericgna` changes, and only its two GW006 become two more GN001
+  (`GN001=5` in place of `GN001=3 ... GW006=2`); `expected-fixtures.txt` records it.
+  `npm test` passes.
+- CI pinned to Gon v1.22.0; README verified-against note bumped.
+
 ## [0.1.17]
 
 - Verified against **Gon v1.21.0**. The protocol is unchanged; v1.21 adds the
