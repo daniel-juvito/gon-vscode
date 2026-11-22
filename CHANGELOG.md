@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.1.17]
+
+- Verified against **Gon v1.21.0**. The protocol is unchanged; v1.21 adds the
+  warning **GW006** (an ordinary value flowing into a `!T` slot of a pointer,
+  slice, map, channel or function type) and the explicit conversion `(!T)(x)`.
+  A warning alone is exit 0 and the extension renders it like any other
+  diagnostic, so **no code change**.
+- The eleven fixtures give the same result under v1.21.0 as under v1.20.0 except
+  `fixtures/genericgna`, which now also reports GW006 twice (two ordinary `*cache.Logger`
+  values flowing into `!*cache.Logger` fields, at lines 23 and 24); `expected-fixtures.txt`
+  records it. The exit code of every fixture is unchanged. `npm test` passes.
+- CI pinned to Gon v1.21.0; README verified-against note bumped.
+
 ## [0.1.16]
 
 - Verified against **Gon v1.20.0**. Two exit codes change, and one of them is

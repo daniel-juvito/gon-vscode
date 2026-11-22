@@ -5,8 +5,9 @@ VS Code extension for [Gon](https://github.com/daniel-juvito/gon) — consumer o
 The Gon compiler remains the source of truth. This extension does **not** implement a semantic Gon parser or an LSP server.
 
 Tracks the Gon CLI, not a pinned version: it renders whatever `gon check --json`
-emits under Diagnostic Protocol v1. Verified against **Gon v1.20.0**
-(unchanged protocol). Since v1.17 the single-file `gon check --json <file>`
+emits under Diagnostic Protocol v1. Verified against **Gon v1.21.0**
+(unchanged protocol; v1.21 adds the warning GW006, which renders like any other
+diagnostic). Since v1.17 the single-file `gon check --json <file>`
 the extension runs is exit 2 when the file's `go.mod` is found but its module
 cannot be loaded (for example an invalid `go.mod`); the extension treats exit 2
 as a tooling failure, keeps the file's previous diagnostics and writes Gon's
