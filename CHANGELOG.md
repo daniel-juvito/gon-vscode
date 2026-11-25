@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.19]
+
+- Verified against **Gon v1.23.0**. The protocol is unchanged; v1.23 adds three errors for shapes that were accepted before: GN002 for a zero-valued array of `!` elements (`var a [3]!*T`,
+  `new([3]!*T)`, a named array type, a struct field of one) and for `make` of a slice of `!` elements with a length other than the constant 0, and GN001 for `x = nil` or an ordinary value assigned
+  to a named `!T` result. The extension renders any code with its severity, so **no code change**: such a diagnostic appears as an error in the Problems panel.
+- The eleven fixtures give the same result under v1.23.0 as under v1.22.0 (`scripts/check-fixtures.sh`, 0 FAIL): none declares one of the new shapes, so `expected-fixtures.txt` is unchanged.
+  `npm test` passes.
+- CI pinned to Gon v1.23.0; README verified-against note bumped.
+
 ## [0.1.18]
 
 - Verified against **Gon v1.22.0**. The protocol is unchanged; v1.22 makes an ordinary
