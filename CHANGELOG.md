@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.20]
+
+- Verified against **Gon v1.24.0**. The protocol is unchanged; v1.24 adds one error for a shape that was accepted before: GN002 for a bare `return` in a function (method, function literal) that has a
+  named result declared `!T`. The extension renders any code with its severity, so **no code change**: such a diagnostic appears as an error in the Problems panel.
+- The eleven fixtures give the same result under v1.24.0 as under v1.23.0 (`scripts/check-fixtures.sh`, 0 FAIL): none has such a function, so `expected-fixtures.txt` is unchanged. `npm test` passes.
+- CI pinned to Gon v1.24.0; README verified-against note bumped.
+
 ## [0.1.19]
 
 - Verified against **Gon v1.23.0**. The protocol is unchanged; v1.23 adds three errors for shapes that were accepted before: GN002 for a zero-valued array of `!` elements (`var a [3]!*T`,
