@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.22]
+
+- Verified against **Gon v1.26.0**. The protocol is unchanged; v1.26 binds a local by the form of its initialiser (`x := &T{}`), so an assignment of nil or of an ordinary value to it is GN001 (with a hint in the message) and a comparison with nil is
+  GW001, and `append` and a reslice of a recognised value no longer need a conversion where a `!T` is wanted. The extension renders any code with its severity, so **no code change**.
+- Of the eleven fixtures one changes, as an improvement: `genericgna` gives 3 GN001 instead of 5 (two flows of a bound local into a `!` slot are no longer ordinary); `expected-fixtures.txt` records it. The other ten are unchanged (`scripts/check-fixtures.sh`, 0 FAIL). `npm test` passes.
+- CI pinned to Gon v1.26.0; README verified-against note bumped.
+
 ## [0.1.21]
 
 - Verified against **Gon v1.25.0**. The protocol is unchanged; v1.25 adds the tool `gon convert` and no diagnostic, so there is **no code change**.
