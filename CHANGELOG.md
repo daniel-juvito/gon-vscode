@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.1.21]
+
+- Verified against **Gon v1.25.0**. The protocol is unchanged; v1.25 adds the tool `gon convert` and no diagnostic, so there is **no code change**.
+- The eleven fixtures give the same result under v1.25.0 as under v1.24.0 (`scripts/check-fixtures.sh`, 0 FAIL), so `expected-fixtures.txt` is unchanged.
+- CI pinned to Gon v1.25.0; README verified-against note bumped.
+
 ## [0.1.20]
 
 - Verified against **Gon v1.24.0**. The protocol is unchanged; v1.24 adds one error for a shape that was accepted before: GN002 for a bare `return` in a function (method, function literal) that has a

@@ -5,7 +5,7 @@ VS Code extension for [Gon](https://github.com/daniel-juvito/gon) — consumer o
 The Gon compiler remains the source of truth. This extension does **not** implement a semantic Gon parser or an LSP server.
 
 Tracks the Gon CLI, not a pinned version: it renders whatever `gon check --json`
-emits under Diagnostic Protocol v1. Verified against **Gon v1.24.0**
+emits under Diagnostic Protocol v1. Verified against **Gon v1.25.0**
 (unchanged protocol; v1.24 reports a bare `return` in a function with a named `!T` result as GN002, v1.23 reports three more shapes as errors, GN002 for a zero-valued array of `!` elements
 and for `make` of a slice of them and GN001 for `x = nil` on a named `!T` result, and v1.22 made an ordinary value
 flowing into a `!T` slot GN001 where v1.21 reported the warning GW006; each renders like any other
